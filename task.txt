@@ -1,0 +1,19 @@
+2. 📊 Panel Administrativo Multi-Rol (SaaS básico)
+Una aplicación tipo panel de control con roles jerárquicos y gestión de usuarios y recursos.
+
+Funcionalidades clave:
+CRUD de usuarios, categorías, recursos (ej. productos, cursos, proyectos)
+
+Roles: admin, editor, viewer, con permisos finos
+
+Logs de actividad
+
+Panel con gráficas de métricas (puedes servir JSON y graficarlo con el front)
+
+Upload de recursos (imágenes, PDF, videos)
+
+Qué refinas:
+✅ estructura de APIs limpias,
+✅ control de accesos por rol,
+✅ logs/seguridad,
+✅ modularidad del backend.
