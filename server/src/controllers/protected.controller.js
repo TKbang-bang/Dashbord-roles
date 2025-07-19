@@ -1,4 +1,4 @@
-const main = async (req, res) => {
+const verify = async (req, res) => {
   try {
     if (!req.userId) return res.status(401).json({ message: "Unauthorized" });
 
@@ -9,4 +9,4 @@ const main = async (req, res) => {
   }
 };
 
-module.exports = { main };
+module.exports = { verify };

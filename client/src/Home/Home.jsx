@@ -1,13 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import api from "../services/api";
 import { getAccessToken } from "../services/token.service";
+import "./home.css";
+import Nav from "./components/Nav";
 
 function Home() {
+  const [user, setUser] = useState({});
+
   const getVerify = async () => {
     try {
-      const res = await api.get("/");
+      const res = await api.get("/user");
 
-      // console.log(res.data);
+      if (res.status !== 200) throw new Error(res.data.message);
+
+      setUser(res.data);
     } catch (error) {
       console.log(error.response ? error.response.data : error);
     }
@@ -19,9 +25,7 @@ function Home() {
 
   return (
     <div>
-      <h1>Welcome Home</h1>
-      <button onClick={getVerify}>Verify</button>
-      <button onClick={() => console.log(getAccessToken())}>Get token</button>
+      <Nav user={user} />
     </div>
   );
 }

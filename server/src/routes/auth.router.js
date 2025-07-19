@@ -3,7 +3,7 @@ const { signup, signin } = require("../controllers/auth.controller");
 const {
   signupVerification,
   signinVerification,
-} = require("../middlewares/auth.verification");
+} = require("../middlewares/auth.validation");
 
 const authRouter = Router();
 

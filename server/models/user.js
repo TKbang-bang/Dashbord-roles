@@ -38,6 +38,12 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      name: {
+        type: DataTypes.VIRTUAL,
+        get() {
+          return `${this.firstname} ${this.lastname}`.trim();
+        },
+      },
       email: {
         type: DataTypes.STRING,
         allowNull: false,
