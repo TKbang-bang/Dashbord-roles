@@ -13,6 +13,15 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
+
+    toJSON() {
+      const values = { ...this.get() };
+      delete values.password;
+      delete values.createdAt;
+      delete values.updatedAt;
+
+      return values;
+    }
   }
   User.init(
     {

@@ -1,4 +1,6 @@
 const { User } = require("../../models");
+const { createAccessToken, createRefreshToken } = require("../utils/token");
+const bcrypt = require("bcrypt");
 
 const signup = async (req, res) => {
   try {
@@ -21,11 +23,31 @@ const signup = async (req, res) => {
 
 const signin = async (req, res) => {
   try {
+    // user credentials from client
     const { email, password } = req.body;
 
-    console.log({ email, password });
+    // check if user exists
+    const user = await User.findOne({ where: { email } });
+    if (!user) return res.status(404).json({ message: "User not found" });
 
-    return res.status(200).json({ message: "Signin successful" });
+    // password verification
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid)
+      return res.status(401).json({ message: "Password is incorrect" });
+
+    // token management
+    const accessToken = createAccessToken(user.user_id);
+    const refreshToken = createRefreshToken(user.user_id);
+
+    return res
+      .status(200)
+      .cookie("refreshToken", refreshToken, {
+        httpOnly: true,
+        secure: false,
+        sameSite: "lax",
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+      })
+      .json({ accessToken });
   } catch (error) {
     console.log("POST /auth/signin => ", error);
     return res.status(500).json({ message: "Internal server error" });
