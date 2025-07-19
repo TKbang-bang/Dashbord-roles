@@ -9,7 +9,7 @@ const refreshTokenOptions = {
   maxAge: 1000 * 60 * 60 * 24 * 7,
 };
 
-const tokenValidation = async (req, res, next) => {
+const tokenValidation = (req, res, next) => {
   // token from client
   const accessToken = req.headers.authorization?.split(" ")[1];
   const refreshToken = req.cookies.refreshToken;
@@ -24,7 +24,7 @@ const tokenValidation = async (req, res, next) => {
 
     // refresh token verification
     try {
-      const { userId } = await jwt.verify(
+      const { userId } = jwt.verify(
         refreshToken,
         process.env.REFRESH_TOKEN_SECRET
       );
@@ -36,9 +36,11 @@ const tokenValidation = async (req, res, next) => {
       // set new tokens
       res.cookie("refreshToken", newRefreshToken, refreshTokenOptions);
 
-      // set userId and accessToken
+      // set access token
+      res.setHeader("access-token", `Bearer ${newAccessToken}`);
+
+      // set userId
       req.userId = userId;
-      req.accessToken = newAccessToken;
 
       // next middleware
       return next();
@@ -50,7 +52,7 @@ const tokenValidation = async (req, res, next) => {
   // if the access token is not null
   try {
     // verify access token
-    const { userId: accessUserId } = await jwt.verify(
+    const { userId: accessUserId } = jwt.verify(
       accessToken,
       process.env.ACCESS_TOKEN_SECRET
     );
@@ -63,7 +65,7 @@ const tokenValidation = async (req, res, next) => {
 
       // refresh token verification
       try {
-        const { userId } = await jwt.verify(
+        const { userId } = jwt.verify(
           refreshToken,
           process.env.REFRESH_TOKEN_SECRET
         );
@@ -75,9 +77,11 @@ const tokenValidation = async (req, res, next) => {
         // set new tokens
         res.cookie("refreshToken", newRefreshToken, refreshTokenOptions);
 
-        // set userId and accessToken
+        // set access token
+        res.setHeader("access-token", `Bearer ${newAccessToken}`);
+
+        // set userId
         req.userId = userId;
-        req.accessToken = newAccessToken;
 
         // next middleware
         return next();
@@ -87,9 +91,8 @@ const tokenValidation = async (req, res, next) => {
     } else {
       // if the access token is not null or undefined
 
-      // set userId and accessToken
+      // set userId
       req.userId = accessUserId;
-      req.accessToken = accessToken;
 
       // next middleware
       return next();
