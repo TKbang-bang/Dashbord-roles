@@ -5,6 +5,7 @@ import SignIn from "./auth/SignIn";
 import SignUp from "./auth/SignUp";
 import { useEffect } from "react";
 import axios from "axios";
+import SignUpPlus from "./auth/SignupPlus";
 
 axios.defaults.baseURL = "http://localhost:3000";
 axios.defaults.withCredentials = true;
@@ -20,6 +21,7 @@ function App() {
     <Routes>
       <Route path="/dashboard" element={<Home />} />
       <Route path="/signup" element={<SignUp />} />
+      <Route path="/signup/plus" element={<SignUpPlus />} />
       <Route path="/signin" element={<SignIn />} />
     </Routes>
   );

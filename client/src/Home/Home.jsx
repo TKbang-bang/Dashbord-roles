@@ -3,6 +3,7 @@ import api from "../services/api";
 import { getAccessToken } from "../services/token.service";
 import "./home.css";
 import Nav from "./components/Nav";
+import Display from "./Display";
 
 function Home() {
   const [user, setUser] = useState({});
@@ -26,6 +27,7 @@ function Home() {
   return (
     <div>
       <Nav user={user} />
+      <Display user={user} />
     </div>
   );
 }

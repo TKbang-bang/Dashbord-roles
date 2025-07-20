@@ -6,6 +6,11 @@ const signup = async (req, res) => {
   try {
     const { firstName, lastName, email, password } = req.body;
 
+    // check if user exists
+    const user = await User.findOne({ where: { email } });
+    if (user) return res.status(409).json({ message: "User already exists" });
+
+    // creating user
     await User.create({
       firstname: firstName,
       lastname: lastName,
@@ -17,6 +22,42 @@ const signup = async (req, res) => {
     return res.status(201).json({ message: "User created successfully" });
   } catch (error) {
     console.log("POST /auth/signup => ", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+const signupPlus = async (req, res) => {
+  try {
+    const { firstName, lastName, email, password, code } = req.body;
+    let role = "";
+
+    // check if user exists
+    const user = await User.findOne({ where: { email } });
+    if (user) return res.status(409).json({ message: "User already exists" });
+
+    // code verification
+    if (
+      code !== `${process.env.ADMIN_CODE}` &&
+      code !== `${process.env.MODERATOR_CODE}`
+    )
+      return res.status(400).json({ message: "Invalid code" });
+    if (code === `${process.env.ADMIN_CODE}`) role = "admin";
+    if (code === `${process.env.MODERATOR_CODE}`) role = "moderator";
+
+    // creating user
+    await User.create({
+      firstname: firstName,
+      lastname: lastName,
+      email,
+      password,
+      role,
+    });
+
+    return res
+      .status(201)
+      .json({ message: `User ${role} created successfully` });
+  } catch (error) {
+    console.log("POST /auth/signup/plus => ", error);
     return res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -54,4 +95,4 @@ const signin = async (req, res) => {
   }
 };
 
-module.exports = { signup, signin };
+module.exports = { signup, signin, signupPlus };
