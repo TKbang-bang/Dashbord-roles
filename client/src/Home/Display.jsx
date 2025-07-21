@@ -1,5 +1,7 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Routes, Route } from "react-router-dom";
+import Products from "./Products";
+import CreateProduct from "./CreateProduct";
 
 function Display({ user }) {
   return (
@@ -10,13 +12,21 @@ function Display({ user }) {
             <NavLink to="/products">Products</NavLink>
           </li>
           <li>
-            <NavLink to="/products">Users</NavLink>
+            <NavLink to="/createproduct">Create Product</NavLink>
           </li>
           <li>
-            <NavLink to="/products">Logs</NavLink>
+            <NavLink to="/users">Users</NavLink>
+          </li>
+          <li>
+            <NavLink to="/logs">Logs</NavLink>
           </li>
         </ul>
       </aside>
+
+      <Routes>
+        <Route path="/products" element={<Products />} />
+        <Route path="/createproduct" element={<CreateProduct />} />
+      </Routes>
     </div>
   );
 }

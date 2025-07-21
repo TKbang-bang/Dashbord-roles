@@ -4,6 +4,7 @@ import { getAccessToken } from "../services/token.service";
 import "./home.css";
 import Nav from "./components/Nav";
 import Display from "./Display";
+import { Route, Routes } from "react-router-dom";
 
 function Home() {
   const [user, setUser] = useState({});
@@ -27,7 +28,10 @@ function Home() {
   return (
     <div>
       <Nav user={user} />
-      <Display user={user} />
+
+      <Routes>
+        <Route path="*" element={<Display user={user} />} />
+      </Routes>
     </div>
   );
 }

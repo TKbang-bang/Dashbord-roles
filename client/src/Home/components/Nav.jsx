@@ -3,7 +3,7 @@ import React from "react";
 function Nav({ user }) {
   return (
     <nav>
-      <a href="/dashboard">
+      <a href="/">
         <h1>Dashboard</h1>
       </a>
       <div className="user">

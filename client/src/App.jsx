@@ -14,12 +14,12 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (window.location.pathname == "/") navigate("/dashboard");
+    if (window.location.pathname == "/") navigate("/products");
   }, []);
 
   return (
     <Routes>
-      <Route path="/dashboard" element={<Home />} />
+      <Route path="*" element={<Home />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/signup/plus" element={<SignUpPlus />} />
       <Route path="/signin" element={<SignIn />} />

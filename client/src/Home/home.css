@@ -35,9 +35,10 @@ nav {
   width: 100%;
   height: 90svh;
   background-color: #1b0505;
+  display: flex;
 
   & aside {
-    width: 20rem;
+    width: 30vw;
     height: 90svh;
     background-color: #681818;
 
@@ -54,7 +55,7 @@ nav {
         background-color: #cf3c3c;
 
         &:hover {
-          background-color: #5b1a1a;
+          background-color: #753131;
         }
 
         & a {
@@ -72,6 +73,106 @@ nav {
             background-color: #5b1a1a;
           }
         }
+      }
+    }
+  }
+
+  & .container {
+    width: 70vw;
+    height: 90svh;
+  }
+
+  & .products {
+    color: #fff;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+
+    & .btn {
+      color: #fff;
+      text-decoration: none;
+      background-color: #2bb42b;
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      margin: 1rem 0;
+    }
+  }
+
+  & .createproduct {
+    color: #fff;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+
+    & form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      & h1 {
+        margin-block: 1rem 2rem;
+      }
+
+      & .img_container {
+        border: 1px solid #fff;
+        max-width: 30rem;
+        max-height: 20rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        & input {
+          display: none;
+        }
+
+        & label {
+          width: 30rem;
+          height: 20rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+        }
+
+        & img {
+          max-width: 100%;
+          max-height: 100%;
+          object-fit: contain;
+        }
+      }
+
+      & .btn_secondary {
+        width: 20rem;
+        height: 2.5rem;
+        font-size: 1rem;
+        background-color: #2bb42b;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        border-radius: 0.5rem;
+      }
+
+      & > input {
+        width: 20rem;
+        height: 2.5rem;
+        font-size: 1rem;
+        padding-inline: 0.5rem;
+      }
+
+      & button {
+        width: 20rem;
+        height: 2.5rem;
+        font-size: 1rem;
+        background-color: #2bb42b;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 0.5rem;
       }
     }
   }
