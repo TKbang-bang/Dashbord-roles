@@ -11,7 +11,7 @@ function Home() {
 
   const getVerify = async () => {
     try {
-      const res = await api.get("/user");
+      const res = await api.get("/users");
 
       if (res.status !== 200) throw new Error(res.data.message);
 

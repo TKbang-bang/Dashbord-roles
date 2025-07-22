@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink, Routes, Route } from "react-router-dom";
 import Products from "./Products";
 import CreateProduct from "./CreateProduct";
+import Users from "./Users";
 
 function Display({ user }) {
   return (
@@ -26,6 +27,7 @@ function Display({ user }) {
       <Routes>
         <Route path="/products" element={<Products />} />
         <Route path="/createproduct" element={<CreateProduct />} />
+        <Route path="/users" element={<Users />} />
       </Routes>
     </div>
   );

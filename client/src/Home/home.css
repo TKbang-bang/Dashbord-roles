@@ -214,4 +214,60 @@ nav {
       }
     }
   }
+
+  & .users_container {
+    padding: 1rem;
+    color: #fff;
+
+    & table {
+      width: 100%;
+      border: 1px solid #fff;
+
+      & thead {
+        border: 1px solid #fff;
+        width: 100%;
+
+        & th {
+          border: 1px solid #fff;
+          padding: 0.5rem;
+        }
+      }
+
+      & tbody {
+        border: 1px solid #fff;
+        width: 100%;
+
+        & td {
+          border: 1px solid #fff;
+          padding: 0.5rem;
+        }
+
+        & .actions {
+          display: flex;
+          justify-content: space-evenly;
+          align-items: center;
+          gap: 0.5rem;
+
+          & button {
+            font-size: 1rem;
+            background-color: #dc1d1d;
+            color: #fff;
+            padding: 0.2rem 0.5rem;
+            border: none;
+            cursor: pointer;
+          }
+
+          & a {
+            font-size: 1rem;
+            background-color: blue;
+            color: #fff;
+            padding: 0.2rem 0.5rem;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
 }

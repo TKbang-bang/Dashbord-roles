@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const { verify } = require("../controllers/protected.controller");
 const { tokenValidation } = require("../middlewares/token.validation");
-const { getUser, logout } = require("../controllers/user.controller");
+const { getUser, logout, getUsers } = require("../controllers/user.controller");
 const upload = require("../utils/multer");
 const {
   createProduct,
@@ -11,7 +11,8 @@ const {
 const protectedRouter = Router();
 
 protectedRouter.get("/", tokenValidation, verify);
-protectedRouter.get("/user", tokenValidation, getUser);
+protectedRouter.get("/users", tokenValidation, getUser);
+protectedRouter.get("/users/all", tokenValidation, getUsers);
 protectedRouter.delete("/logout", tokenValidation, logout);
 
 // products
