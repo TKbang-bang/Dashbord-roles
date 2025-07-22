@@ -25,7 +25,7 @@ function SignIn() {
 
       setAccessToken(res.data.accessToken);
 
-      navigate("/dashboard");
+      navigate("/products");
     } catch (error) {
       console.log(error.response?.data);
     }

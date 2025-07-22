@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const router = require("./routes/router");
 const cookieParser = require("cookie-parser");
+const path = require("path");
 
 // creating express application
 const app = express();
@@ -18,6 +19,7 @@ app.use(
     exposedHeaders: ["access-token"],
   })
 );
+app.use(express.static(path.join(__dirname, "../public")));
 app.use(cookieParser());
 app.use(express.json());
 

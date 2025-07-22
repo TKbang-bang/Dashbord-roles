@@ -13,4 +13,22 @@ const getUser = async (req, res) => {
   }
 };
 
-module.exports = { getUser };
+const logout = async (req, res) => {
+  try {
+    // clear cookies
+    res.clearCookie("refreshToken", {
+      httpOnly: true,
+      secure: false,
+      sameSite: "lax",
+    });
+    // clear headers
+    res.removeHeader("access-token");
+
+    return res.status(204).end();
+  } catch (error) {
+    console.log("delete /protected/user => ", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+module.exports = { getUser, logout };

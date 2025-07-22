@@ -35,8 +35,8 @@ api.interceptors.response.use(
         return retry;
       } catch (e) {
         removeAccessToken();
-        if (window.location.pathname !== "/sign") {
-          window.location.href = "/sign";
+        if (window.location.pathname !== "/signin") {
+          window.location.href = "/signin";
         }
       }
     }
