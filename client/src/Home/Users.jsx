@@ -25,9 +25,11 @@ function Users() {
     <div className="users_container  container">
       <table className="users_list">
         <thead>
-          <th>Name</th>
-          <th>Role</th>
-          <th className="actions">Actions</th>
+          <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <th className="actions">Actions</th>
+          </tr>
         </thead>
         <tbody>
           {users.map((user) => {
@@ -36,23 +38,13 @@ function Users() {
                 <td>{user.name}</td>
                 <td>{user.role}</td>
                 <td className="actions">
-                  <Link to={`/users/${user.user_id}`}>Edit role</Link>
+                  <Link to={`/edit/${user.user_id}`}>Edit role</Link>
                   <button>Delete User</button>
                 </td>
               </tr>
             );
           })}
         </tbody>
-        {/* {users.map((user) => {
-          return (
-            <li key={user.user_id}>
-              <h3>{user.name}</h3>
-              <p>{user.role}</p>
-              <Link>Edit role</Link>
-              <button>Delete User</button>
-            </li>
-          );
-        })} */}
       </table>
     </div>
   );

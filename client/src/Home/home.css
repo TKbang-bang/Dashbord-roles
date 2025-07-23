@@ -266,6 +266,25 @@ nav {
             cursor: pointer;
             text-decoration: none;
           }
+
+          & form {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+
+            & input {
+              height: 2rem;
+              width: 15rem;
+              font-size: 1rem;
+              padding-inline: 0.5rem;
+            }
+
+            & .update {
+              background-color: rgb(49, 196, 49);
+            }
+          }
         }
       }
     }

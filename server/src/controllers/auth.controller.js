@@ -3,6 +3,7 @@ const { createAccessToken, createRefreshToken } = require("../utils/token");
 const bcrypt = require("bcrypt");
 
 const signup = async (req, res) => {
+  console.log("He estado aqui");
   try {
     const { firstName, lastName, email, password } = req.body;
 

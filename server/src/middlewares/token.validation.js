@@ -89,8 +89,6 @@ const tokenValidation = (req, res, next) => {
         return res.status(401).json({ message: "Invalid refresh token" });
       }
     } else {
-      // if the access token is not null or undefined
-
       // set userId
       req.userId = accessUserId;
 

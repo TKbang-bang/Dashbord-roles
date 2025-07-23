@@ -14,6 +14,27 @@ const getUser = async (req, res) => {
   }
 };
 
+const getAUser = async (req, res) => {
+  try {
+    // getting the user
+    const user = await User.findByPk(req.userId);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    // checking the user role ADMIN
+    if (user.role !== "admin")
+      return res.status(403).json({ message: "You are not authorized" });
+
+    // getting the user
+    const aUser = await User.findByPk(req.params.id);
+    if (!aUser) return res.status(404).json({ message: "User not found" });
+
+    return res.status(200).json(aUser);
+  } catch (error) {
+    console.log("GET /protected/user/:id => ", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 const getUsers = async (req, res) => {
   try {
     // getting the user
@@ -75,4 +96,37 @@ const logout = async (req, res) => {
   }
 };
 
-module.exports = { getUser, logout, getUsers };
+const updateUser = async (req, res) => {
+  try {
+    // getting data from client request
+    const { id } = req.params;
+    const { role } = req.body;
+
+    // all fields validation
+    if (!id || !role)
+      return res.status(400).json({ message: "Missing fields in the request" });
+
+    // role validation
+    if (role != "moderator" && role != "viewer")
+      return res
+        .status(400)
+        .json({ message: "Role must be moderator or viewer" });
+
+    // getting the user
+    const user = await User.findByPk(req.userId);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    // checking the user role ADMIN
+    if (user.role !== "admin")
+      return res.status(403).json({ message: "You are not authorized" });
+
+    // updating the user
+    await User.update({ role }, { where: { user_id: id } });
+
+    return res.status(204).end();
+  } catch (error) {
+    console.log("PUT /protected/user/:id => ", error);
+  }
+};
+
+module.exports = { getUser, logout, getUsers, getAUser, updateUser };

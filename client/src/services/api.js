@@ -34,10 +34,10 @@ api.interceptors.response.use(
         const retry = await api(originalRequest);
         return retry;
       } catch (e) {
-        removeAccessToken();
         if (window.location.pathname !== "/signin") {
           window.location.href = "/signin";
         }
+        removeAccessToken();
       }
     }
 
