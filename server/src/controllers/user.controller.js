@@ -1,4 +1,4 @@
-const { User } = require("../../models");
+const { User, sequelize, AuditLog } = require("../../models");
 const { Op } = require("sequelize");
 
 const getUser = async (req, res) => {
@@ -68,8 +68,10 @@ const getUsers = async (req, res) => {
       });
 
     // checking the user role VIEWER
-    if (user.role == "viewer")
+    if (user.role == "viewer") {
+      users = [];
       return res.status(403).json({ message: "You are not authorized" });
+    }
 
     return res.status(200).json(users);
   } catch (error) {
@@ -85,9 +87,8 @@ const logout = async (req, res) => {
       httpOnly: true,
       secure: false,
       sameSite: "lax",
+      path: "/",
     });
-    // clear headers
-    res.removeHeader("access-token");
 
     return res.status(204).end();
   } catch (error) {
@@ -121,7 +122,21 @@ const updateUser = async (req, res) => {
       return res.status(403).json({ message: "You are not authorized" });
 
     // updating the user
-    await User.update({ role }, { where: { user_id: id } });
+    await sequelize.transaction(async (transaction) => {
+      // updating user
+      await User.update({ role }, { where: { user_id: id }, transaction });
+
+      // creating audit log
+      await AuditLog.create(
+        {
+          action: "Updated a user",
+          user_id: user.user_id,
+          affected_id: `${id}`,
+          table_affected: "Users",
+        },
+        { transaction }
+      );
+    });
 
     return res.status(204).end();
   } catch (error) {
@@ -129,4 +144,49 @@ const updateUser = async (req, res) => {
   }
 };
 
-module.exports = { getUser, logout, getUsers, getAUser, updateUser };
+const deleteUser = async (req, res) => {
+  try {
+    // getting the user
+    const user = await User.findByPk(req.userId);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    // checking the user role ADMIN
+    if (user.role !== "admin")
+      return res.status(403).json({ message: "You are not authorized" });
+
+    // getting the user
+    const aUser = await User.findByPk(req.params.id);
+    if (!aUser) return res.status(404).json({ message: "User not found" });
+
+    // deleting the user
+    await sequelize.transaction(async (transaction) => {
+      // deleting user
+      await aUser.destroy({ transaction });
+
+      // creating audit log
+      await AuditLog.create(
+        {
+          action: "Deleted a user",
+          user_id: user.user_id,
+          affected_id: `${aUser.user_id}`,
+          table_affected: "Users",
+        },
+        { transaction }
+      );
+    });
+
+    return res.status(204).end();
+  } catch (error) {
+    console.log("DELETE /protected/users/:id => ", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+module.exports = {
+  getUser,
+  logout,
+  getUsers,
+  getAUser,
+  updateUser,
+  deleteUser,
+};

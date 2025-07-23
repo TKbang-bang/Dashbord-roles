@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import api from "../services/api";
 import { Link } from "react-router-dom";
 
-function Users() {
+function Users({ User }) {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -21,6 +21,18 @@ function Users() {
     getUsers();
   }, []);
 
+  const handleDelete = async (id) => {
+    try {
+      const res = await api.delete(`/users/${id}`);
+
+      if (res.status !== 204) throw new Error(res.data.message);
+
+      setUsers(users.filter((user) => user.user_id !== id));
+    } catch (error) {
+      console.log(error.response ? error.response.data : error);
+    }
+  };
+
   return (
     <div className="users_container  container">
       <table className="users_list">
@@ -28,7 +40,7 @@ function Users() {
           <tr>
             <th>Name</th>
             <th>Role</th>
-            <th className="actions">Actions</th>
+            {User.role === "admin" && <th className="actions">Actions</th>}
           </tr>
         </thead>
         <tbody>
@@ -37,10 +49,14 @@ function Users() {
               <tr key={user.user_id}>
                 <td>{user.name}</td>
                 <td>{user.role}</td>
-                <td className="actions">
-                  <Link to={`/edit/${user.user_id}`}>Edit role</Link>
-                  <button>Delete User</button>
-                </td>
+                {User.role === "admin" && (
+                  <td className="actions">
+                    <Link to={`/edit/${user.user_id}`}>Edit role</Link>
+                    <button onClick={() => handleDelete(user.user_id)}>
+                      Delete User
+                    </button>
+                  </td>
+                )}
               </tr>
             );
           })}

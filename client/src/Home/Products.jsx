@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import api from "../services/api";
 import { useState } from "react";
 
-function Products() {
+function Products({ user }) {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -39,9 +39,11 @@ function Products() {
 
   return (
     <div className="products container">
-      <Link to="/createproduct" className="btn">
-        Create Product
-      </Link>
+      {user.role != "viewer" && (
+        <Link to="/createproduct" className="btn">
+          Create Product
+        </Link>
+      )}
 
       <ul className="products_list">
         {products.map((product) => {

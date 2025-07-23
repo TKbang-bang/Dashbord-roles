@@ -289,4 +289,36 @@ nav {
       }
     }
   }
+
+  & .logs {
+    width: 100%;
+    color: #fff;
+    padding: 1rem;
+
+    & table {
+      width: 100%;
+      border: 1px solid #fff;
+
+      & thead {
+        border: 1px solid #fff;
+        width: 100%;
+
+        & th {
+          border: 1px solid #fff;
+          padding: 0.5rem;
+        }
+      }
+
+      & tbody {
+        border: 1px solid #fff;
+        width: 100%;
+
+        & td {
+          border: 1px solid #fff;
+          padding: 0.5rem;
+          max-width: 5rem;
+        }
+      }
+    }
+  }
 }

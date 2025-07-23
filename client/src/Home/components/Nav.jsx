@@ -1,8 +1,13 @@
 import React from "react";
-import { removeAccessToken } from "../../services/token.service";
+import {
+  removeAccessToken,
+  setAccessToken,
+} from "../../services/token.service";
 import api from "../../services/api";
+import { useNavigate } from "react-router-dom";
 
 function Nav({ user }) {
+  const navigate = useNavigate();
   const handleLogout = async () => {
     try {
       const res = await api.delete("/logout");
@@ -10,8 +15,9 @@ function Nav({ user }) {
       if (res.status !== 204) throw new Error(res.data.message);
 
       removeAccessToken();
+      setAccessToken(null);
 
-      window.location.href = "/signin";
+      navigate("/signin");
     } catch (error) {
       console.log(error.response ? error.response.data : error);
     }

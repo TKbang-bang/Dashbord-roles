@@ -7,6 +7,7 @@ const {
   getUsers,
   getAUser,
   updateUser,
+  deleteUser,
 } = require("../controllers/user.controller");
 const upload = require("../utils/multer");
 const {
@@ -14,6 +15,7 @@ const {
   getProducts,
   deleteProduct,
 } = require("../controllers/products.controller");
+const { getLogs } = require("../controllers/logs.controller");
 const protectedRouter = Router();
 
 protectedRouter.get("/", tokenValidation, verify);
@@ -22,6 +24,7 @@ protectedRouter.get("/users/all", tokenValidation, getUsers);
 protectedRouter.get("/users/one/:id", tokenValidation, getAUser);
 protectedRouter.put("/users/:id", tokenValidation, updateUser);
 protectedRouter.delete("/logout", tokenValidation, logout);
+protectedRouter.delete("/users/:id", tokenValidation, deleteUser);
 
 // products
 protectedRouter.post(
@@ -32,5 +35,7 @@ protectedRouter.post(
 );
 protectedRouter.get("/products", tokenValidation, getProducts);
 protectedRouter.delete("/products/:id", tokenValidation, deleteProduct);
+
+protectedRouter.get("/logs", tokenValidation, getLogs);
 
 module.exports = protectedRouter;
