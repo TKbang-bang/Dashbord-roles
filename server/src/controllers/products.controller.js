@@ -45,6 +45,7 @@ const createProduct = async (req, res) => {
 
 const getProducts = async (req, res) => {
   try {
+    // getting the products from the database
     const products = await Product.findAll();
 
     return res.status(200).json(products);
