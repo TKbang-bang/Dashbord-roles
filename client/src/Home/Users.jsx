@@ -36,35 +36,24 @@ function Users() {
   };
 
   return (
-    <div className="users_container  container">
-      <table className="users_list">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Role</th>
-            {User.role === "admin" && <th className="actions">Actions</th>}
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => {
-            return (
-              <tr key={user.user_id}>
-                <td>{user.name}</td>
-                <td>{user.role}</td>
-                {User.role === "admin" && (
-                  <td className="actions">
-                    <Link to={`/edit/${user.user_id}`}>Edit role</Link>
-                    <button onClick={() => handleDelete(user.user_id)}>
-                      Delete User
-                    </button>
-                  </td>
-                )}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
+    <section className="users_container  container">
+      <ul className="users_list">
+        {users.map((user) => (
+          <li key={user.user_id} className="user_item">
+            <h3 className="user_name">{user.name}</h3>
+            <span className="user_role">{user.role}</span>
+            {User.role === "admin" && (
+              <>
+                <Link to={`/edit/${user.user_id}`}>Edit role</Link>
+                <button onClick={() => handleDelete(user.user_id)}>
+                  Delete User
+                </button>
+              </>
+            )}
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }
 

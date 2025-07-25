@@ -27,17 +27,24 @@ function CreateProduct() {
     }
   };
 
+  const handleImageChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+
+    if (selectedFile)
+      setName(selectedFile.name.split(".")[0].replace(/[_-]/g, " "));
+    else setName("");
+  };
+
   return (
     <div className="createproduct container">
       <form onSubmit={handleSubmit}>
-        <h1>Create Product</h1>
-
         <div className="img_container">
           <input
             type="file"
             id="file"
             accept="image/*"
-            onChange={(e) => setFile(e.target.files[0])}
+            onChange={handleImageChange}
           />
           {file ? (
             <img src={URL.createObjectURL(file)} alt="product" />

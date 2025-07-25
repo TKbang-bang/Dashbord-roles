@@ -21,7 +21,13 @@ const createProduct = async (req, res) => {
     // creating product
     await sequelize.transaction(async (transaction) => {
       const product = await Product.create(
-        { name, path: filename },
+        {
+          name: name
+            .split(" ")
+            .map((word) => word.charAt(0).toUpperCase() + word.substring(1))
+            .join(" "),
+          path: filename,
+        },
         { transaction }
       );
       // creating audit log

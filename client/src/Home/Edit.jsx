@@ -43,36 +43,37 @@ function Edit() {
   };
 
   return (
-    <div className="users_container container">
-      <table className="users_list">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Role</th>
-            <th className="actions">New Role</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{user.name}</td>
-            <td>{user.role}</td>
-            <td className="actions">
-              <form onSubmit={handleUpdate}>
-                <input
-                  type="text"
-                  placeholder="New Role"
-                  value={newRole}
-                  onChange={(e) => setNewRole(e.target.value)}
-                />
-                <button type="submit" className="update">
-                  Update
-                </button>
-              </form>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <section className="edit container">
+      <form onSubmit={handleUpdate}>
+        <h1>Edit User Role</h1>
+        <div className="field_container">
+          <p>Name</p>
+          <h3>{user.name}</h3>
+        </div>
+        <div className="field_container">
+          <p>Current role</p>
+          <h3>{user.role}</h3>
+        </div>
+        <div className="field_container">
+          <p>New Role</p>
+          <input
+            type="text"
+            placeholder="Enter new role"
+            value={newRole}
+            onChange={(e) => setNewRole(e.target.value)}
+          />
+        </div>
+
+        <button type="submit">Update Role</button>
+        <button
+          className="cancel"
+          type="button"
+          onClick={() => navigate("/users")}
+        >
+          Cancel
+        </button>
+      </form>
+    </section>
   );
 }
 

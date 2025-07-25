@@ -37,13 +37,7 @@ function Products() {
   };
 
   return (
-    <div className="products container">
-      {User.role != "viewer" && (
-        <Link to="/createproduct" className="btn">
-          Create Product
-        </Link>
-      )}
-
+    <section className="products container">
       <ul className="products_list">
         {products.map((product) => {
           return (
@@ -53,21 +47,23 @@ function Products() {
                 alt={product.name}
               />
 
-              <h3>{product.name}</h3>
+              <article className="info">
+                <h3>{product.name}</h3>
 
-              {User.role == "admin" && (
-                <button
-                  className="del"
-                  onClick={() => handleDelete(product.product_id)}
-                >
-                  Delete
-                </button>
-              )}
+                {User.role == "admin" && (
+                  <button
+                    className="del"
+                    onClick={() => handleDelete(product.product_id)}
+                  >
+                    Delete
+                  </button>
+                )}
+              </article>
             </li>
           );
         })}
       </ul>
-    </div>
+    </section>
   );
 }
 
