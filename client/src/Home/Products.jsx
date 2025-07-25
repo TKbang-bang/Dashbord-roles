@@ -1,10 +1,11 @@
-import React from "react";
-import { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import api from "../services/api";
 import { useState } from "react";
+import { userConext } from "../App";
 
-function Products({ user }) {
+function Products() {
+  const { User } = useContext(userConext);
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -29,9 +30,7 @@ function Products({ user }) {
 
       if (res.status !== 204) throw new Error(res.data.message);
 
-      return setProducts(
-        products.filter((product) => product.product_id !== id)
-      );
+      setProducts(products.filter((product) => product.product_id !== id));
     } catch (error) {
       console.log(error.response ? error.response.data : error);
     }
@@ -39,7 +38,7 @@ function Products({ user }) {
 
   return (
     <div className="products container">
-      {user.role != "viewer" && (
+      {User.role != "viewer" && (
         <Link to="/createproduct" className="btn">
           Create Product
         </Link>
@@ -56,12 +55,14 @@ function Products({ user }) {
 
               <h3>{product.name}</h3>
 
-              <button
-                className="del"
-                onClick={() => handleDelete(product.product_id)}
-              >
-                Delete
-              </button>
+              {User.role == "admin" && (
+                <button
+                  className="del"
+                  onClick={() => handleDelete(product.product_id)}
+                >
+                  Delete
+                </button>
+              )}
             </li>
           );
         })}

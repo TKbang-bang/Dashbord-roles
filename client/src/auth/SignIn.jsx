@@ -26,6 +26,7 @@ function SignIn() {
       setAccessToken(res.data.accessToken);
 
       navigate("/products");
+      window.location.reload();
     } catch (error) {
       console.log(error.response?.data);
     }

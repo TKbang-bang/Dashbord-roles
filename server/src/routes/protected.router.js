@@ -16,9 +16,10 @@ const {
   deleteProduct,
 } = require("../controllers/products.controller");
 const { getLogs } = require("../controllers/logs.controller");
+
 const protectedRouter = Router();
 
-protectedRouter.get("/", tokenValidation, verify);
+protectedRouter.get("/verify", tokenValidation, verify);
 protectedRouter.get("/users", tokenValidation, getUser);
 protectedRouter.get("/users/all", tokenValidation, getUsers);
 protectedRouter.get("/users/one/:id", tokenValidation, getAUser);

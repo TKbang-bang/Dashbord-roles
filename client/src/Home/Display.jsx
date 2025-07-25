@@ -5,8 +5,10 @@ import CreateProduct from "./CreateProduct";
 import Users from "./Users";
 import Edit from "./Edit";
 import Logs from "./Logs";
+import { userConext } from "../App";
 
-function Display({ user }) {
+function Display() {
+  const { User } = React.useContext(userConext);
   return (
     <div className="display">
       <aside>
@@ -14,7 +16,7 @@ function Display({ user }) {
           <li>
             <NavLink to="/products">Products</NavLink>
           </li>
-          {user.role != "viewer" && (
+          {User.role != "viewer" && (
             <>
               <li>
                 <NavLink to="/createproduct">Create Product</NavLink>
@@ -24,12 +26,10 @@ function Display({ user }) {
                 <NavLink to="/users">Users</NavLink>
               </li>
 
-              {user.role == "admin" && (
-                <>
-                  <li>
-                    <NavLink to="/logs">Logs</NavLink>
-                  </li>
-                </>
+              {User.role == "admin" && (
+                <li>
+                  <NavLink to="/logs">Logs</NavLink>
+                </li>
               )}
             </>
           )}
@@ -37,9 +37,9 @@ function Display({ user }) {
       </aside>
 
       <Routes>
-        <Route path="/products" element={<Products user={user} />} />
+        <Route path="/products" element={<Products />} />
         <Route path="/createproduct" element={<CreateProduct />} />
-        <Route path="/users" element={<Users User={user} />} />
+        <Route path="/users" element={<Users />} />
         <Route path="/edit/:id" element={<Edit />} />
         <Route path="/logs" element={<Logs />} />
       </Routes>

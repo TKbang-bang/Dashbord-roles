@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   removeAccessToken,
   setAccessToken,
 } from "../../services/token.service";
 import api from "../../services/api";
 import { useNavigate } from "react-router-dom";
+import { userConext } from "../../App";
 
-function Nav({ user }) {
+function Nav() {
+  const { User } = useContext(userConext);
   const navigate = useNavigate();
   const handleLogout = async () => {
     try {
@@ -29,7 +31,7 @@ function Nav({ user }) {
         <h1>Dashboard</h1>
       </a>
       <div className="user">
-        <h3>{user.name}</h3>
+        <h3>{User.name}</h3>
         <div className="session">
           <button onClick={handleLogout}>Logout</button>
           <button>Delete Account</button>
