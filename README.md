@@ -123,6 +123,6 @@ npm run dev</code></pre>
   </ul>
 
   <h2 style="color: #e82525;">📬 Contact</h2>
-  <p>For more projects or questions, visit my <a href="https://woodleytk-portfolio.onrender.com/" style="color: #e82525;">portfolio</a> or email me at <a href="tklavensky@gmail.com" style="color: #e82525;"><h3>Woodley TK</h3></a>.</p>
+  <p>For more projects or questions, visit my <a target="_blank" href="https://woodleytk-portfolio.onrender.com/" style="color: #e82525;">portfolio</a> or email me at <a href="tklavensky@gmail.com" style="color: #e82525;"><h3>Woodley TK</h3></a>.</p>
 
 </body>
