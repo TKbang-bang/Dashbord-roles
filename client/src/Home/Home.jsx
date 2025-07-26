@@ -1,11 +1,29 @@
 import "./home.css";
 import Display from "./Display";
-import { Route, Routes, NavLink } from "react-router-dom";
+import { Route, Routes, NavLink, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { userConext } from "../App";
+import api from "../services/api";
+import { removeAccessToken } from "../services/token.service";
 
 function Home() {
   const { User } = useContext(userConext);
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      const res = await api.delete("/logout");
+
+      if (res.status !== 204) throw new Error(res.data.message);
+
+      removeAccessToken();
+      navigate("/signin");
+      window.location.reload();
+    } catch (error) {
+      console.log(error.response ? error.response.data : error);
+    }
+  };
+
   return (
     <div className="home">
       <header>
@@ -14,7 +32,7 @@ function Home() {
         </a>
         <div className="user">
           <h3>{User.name}</h3>
-          <button>Logout</button>
+          <button onClick={handleLogout}>Logout</button>
         </div>
       </header>
 

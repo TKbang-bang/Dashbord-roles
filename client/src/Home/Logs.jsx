@@ -34,8 +34,48 @@ function Logs() {
   }, []);
 
   return (
-    <div className="container logs ">
-      <table>
+    <section className="container logs ">
+      <ul className="logs_list">
+        {logs.map((log) => {
+          return (
+            <li key={log.log_id}>
+              <div className="log_container">
+                <h3>Name</h3>
+                <p>
+                  {log.user.firstname} {log.user.lastname}
+                </p>
+              </div>
+
+              <div className="log_container">
+                <h3>Role</h3>
+                <p>{log.user.role}</p>
+              </div>
+
+              <div className="log_container">
+                <h3>Action</h3>
+                <p>{log.action}</p>
+              </div>
+
+              <div className="log_container">
+                <h3>On table</h3>
+                <p>{log.table_affected}</p>
+              </div>
+
+              <div className="log_container">
+                <h3>On id</h3>
+                <p>{log.affected_id}</p>
+              </div>
+
+              <div className="log_container">
+                <h3>Date</h3>
+                <p>{log.date}</p>
+                <p>{log.hour}</p>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+      {/* <table>
         <thead>
           <tr>
             <th>Username</th>
@@ -63,8 +103,8 @@ function Logs() {
             </tr>
           ))}
         </tbody>
-      </table>
-    </div>
+      </table> */}
+    </section>
   );
 }
 
