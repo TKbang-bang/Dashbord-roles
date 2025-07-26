@@ -107,7 +107,6 @@ MODERATOR_CODE=moderator_secret</code></pre>
   <pre style="background: #f4f4f4; padding: 1rem; border-left: 4px solid #e82525;"><code>cd backend
 npm install
 npx sequelize db:migrate
-npx sequelize db:seed:all
 npm run dev</code></pre>
 
   <h3>Frontend:</h3>
