@@ -6,7 +6,7 @@ import {
 } from "./token.service";
 
 const api = axios.create({
-  baseURL: `http://localhost:3000/protected`,
+  baseURL: `${import.meta.env.VITE_BACKEND_URL}/protected`,
   withCredentials: true,
 });
 

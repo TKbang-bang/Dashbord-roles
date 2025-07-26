@@ -7,7 +7,7 @@ import axios from "axios";
 import SignUpPlus from "./auth/SignupPlus";
 import { setAccessToken } from "./services/token.service";
 
-axios.defaults.baseURL = "http://localhost:3000";
+axios.defaults.baseURL = `${import.meta.env.VITE_BACKEND_URL}`;
 axios.defaults.withCredentials = true;
 
 export const userConext = createContext();
